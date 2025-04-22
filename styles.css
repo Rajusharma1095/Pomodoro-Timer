@@ -1,185 +1,158 @@
-.container {
-            text-align: center;
-            width: 100%;
-            max-width: 500px;
-            padding: 2rem;
-            border-radius: 12px;
-            background: rgba(40, 40, 40, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-        }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
 
-       h1 {
-    color: #fff;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at center, #101010, #1a1a1a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 20px;
+    background: rgba(30, 30, 30, 0.7);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+h1 {
+    color: #eee;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+}
+
+.timer-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 2rem;
+}
+
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+    stroke-dasharray: 816.8;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.1s ease;
+    filter: drop-shadow(0 0 8px #ff6347);
+}
+
+.timer-display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.time {
+    font-size: 3.8rem;
+    font-weight: 600;
+    color: #00ffcc;
+    text-shadow: 0 0 15px #00ffc3;
+}
+
+.mode {
+    font-size: 1rem;
+    color: #ccc;
+    margin-top: 0.6rem;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
-
-        .timer-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto 2rem;
-        }
-
-        .progress-ring {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-
-        .progress-ring__circle {
-            stroke-dasharray: 816.8;
-            stroke-dashoffset: 0;
-            stroke-linecap: round;
-            transition: stroke-dashoffset 0.1s ease;
-        }
-
-        .timer-display {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .time {
-    font-size: 3.5rem;
-    font-weight: bold;
-    color: #00ff90;
-    text-shadow: 0 0 6px rgba(0, 255, 144, 0.5);
+button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
+#start-btn {
+    background: linear-gradient(to right, #00c853, #64dd17);
+    color: white;
+}
 
-        .timer-display.active .time {
-            animation: pulse 1.5s infinite;
-        }
+#start-btn:hover {
+    filter: brightness(1.2);
+}
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.7;
-            }
-        }
+#pause-btn {
+    background: linear-gradient(to right, #ff9800, #f57c00);
+    color: white;
+}
 
-        .mode {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-top: 0.5rem;
-        }
+#pause-btn:hover {
+    filter: brightness(1.2);
+}
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
+#reset-btn {
+    background: linear-gradient(to right, #f44336, #e53935);
+    color: white;
+}
 
-        button {
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background-color: #f0f0f0;
-            color: #333;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
+#reset-btn:hover {
+    filter: brightness(1.2);
+}
 
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: skewX(-45deg);
-            transition: left 0.4s;
-            z-index: 0;
-        }
+.settings {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
 
-        button:hover::before {
-            left: 100%;
-        }
+.setting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        button:hover {
-            background-color: #e0e0e0;
-        }
+.setting label {
+    color: #bbb;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
 
-        button:active {
-            transform: scale(0.98);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        #start-btn {
-            background-color: #4caf50;
-            color: #fff;
-        }
-
-        #start-btn:hover {
-            background-color: #45a049;
-        }
-
-        #pause-btn {
-            background-color: #ff9800;
-            color: #fff;
-        }
-
-        #pause-btn:hover {
-            background-color: #f57c00;
-        }
-
-        #reset-btn {
-            background-color: #f44336;
-            color: #fff;
-        }
-
-        #reset-btn:hover {
-            background-color: #e53935;
-        }
-
-        .settings {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-
-        .setting {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .setting label {
-            color: #bbb;
-        }
-
-        .setting input {
-            background-color: #222;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 0.5rem;
-            border-radius: 4px;
-            width: 70px;
-            text-align: center;
+.setting input {
+    background-color: #111;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    width: 60px;
+    text-align: center;
+    box-shadow: inset 0 0 6px rgba(0, 255, 255, 0.1);
+}
