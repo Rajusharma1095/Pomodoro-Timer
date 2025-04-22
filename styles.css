@@ -4,13 +4,12 @@
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 }
-
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a); /* Smooth black gradient */
 }
 
 .container {
@@ -19,11 +18,31 @@ body {
     max-width: 500px;
     padding: 2rem;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(40, 40, 40, 0.6); /* Semi-dark glass effect */
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
+
+h1 {
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+.time {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
+}
+
+.mode {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-top: 0.5rem;
+}
+
+
 
 h1 {
     color: #333;
@@ -88,11 +107,7 @@ h1 {
     }
 }
 
-.mode {
-    font-size: 1.2rem;
-    color: #666;
-    margin-top: 0.5rem;
-}
+
 
 .controls {
     display: flex;
@@ -186,15 +201,13 @@ button:disabled {
     align-items: center;
 }
 
+
 .setting label {
-    margin-bottom: 0.5rem;
-    color: #666;
+    color: #bbb;
 }
 
 .setting input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 70px;
-    text-align: center;
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #444;
 }
