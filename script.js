@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isFocusMode = true;
     let totalSeconds = parseInt(focusTimeInput.value) * 60;
     let currentSeconds = totalSeconds;
-    
+
     // Update progress ring
     function updateProgressRing() {
         const progress = currentSeconds / totalSeconds;
@@ -27,21 +27,27 @@ document.addEventListener('DOMContentLoaded', () => {
         progressRing.style.strokeDasharray = CIRCLE_CIRCUMFERENCE;
         progressRing.style.strokeDashoffset = offset;
     }
-    
+
     // Format time for display (MM:SS)
     function formatTime(seconds) {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
-    
+
     // Update display
     function updateDisplay() {
         timeDisplay.textContent = formatTime(currentSeconds);
         modeDisplay.textContent = isFocusMode ? 'Focus Time' : 'Break Time';
         updateProgressRing();
+    } 
+
+    // Beep sound
+    function playNotificationSound() {
+        const audio = new Audio('beep-sound.mp3'); // Replace with a valid file path
+        audio.play().catch(err => console.log('Audio playback failed:', err));
     }
-    
+
     // Reset timer
     function resetTimer() {
         clearInterval(timerInterval);
@@ -62,14 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Start timer
     function startTimer() {
+        if (isRunning) return;  // Prevent starting a new timer if it's already running
         isRunning = true;
         isPaused = false;
-        
         startBtn.disabled = true;
         pauseBtn.disabled = false;
         focusTimeInput.disabled = true;
         breakTimeInput.disabled = true;
-        
+
         timerInterval = setInterval(() => {
             if (currentSeconds > 0) {
                 currentSeconds--;
@@ -79,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 playNotificationSound();
                 clearInterval(timerInterval);
                 isFocusMode = !isFocusMode;
-                
+
                 // Set new time based on current mode
                 if (isFocusMode) {
                     totalSeconds = parseInt(focusTimeInput.value) * 60;
@@ -88,14 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     totalSeconds = parseInt(breakTimeInput.value) * 60;
                     progressRing.style.stroke = '#4caf50'; // Green for break
                 }
-                
+
                 currentSeconds = totalSeconds;
                 updateDisplay();
                 startTimer(); // Auto start next phase
             }
         }, 1000);
     }
-    
+
     // Pause timer
     function pauseTimer() {
         clearInterval(timerInterval);
@@ -105,13 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startBtn.disabled = false;
         pauseBtn.disabled = true;
     }
-    
-    // Play notification sound
-    function playNotificationSound() {
-        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLHPM7tZyKgктлиsrvvvnfeeegfgdeeffefefekjenfnn'); // Simple beep sound
-        audio.play().catch(err => console.log('Audio playback failed:', err));
-    }
-    
+
     // Initialize display
     updateDisplay();
     
@@ -137,16 +137,21 @@ document.addEventListener('DOMContentLoaded', () => {
     resetBtn.addEventListener('click', () => {
         resetTimer();
     });
-    
+
+    // Handle changes to focus and break time
     focusTimeInput.addEventListener('change', () => {
         if (!isRunning) {
-            resetTimer();
+            totalSeconds = parseInt(focusTimeInput.value) * 60;
+            currentSeconds = totalSeconds;
+            updateDisplay();
         }
     });
-    
+
     breakTimeInput.addEventListener('change', () => {
         if (!isRunning) {
-            resetTimer();
+            totalSeconds = parseInt(breakTimeInput.value) * 60;
+            currentSeconds = totalSeconds;
+            updateDisplay();
         }
     });
 });
